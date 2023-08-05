@@ -1,0 +1,28 @@
+{
+   "tasks": [
+      {
+         "name": "dotnet-format-example",
+         "command": "dotnet",
+         "args": [ "format", "./Dotnet-Rest-Template.sln" ],
+         "include": [ "**/*.cs", "**/*.vb" ]
+      },
+      {
+         "name": "git-commit-format",
+         "command": "git",
+         "args": [ "add", "." ],
+         "include": [ "**/*.cs", "**/*.vb" ]
+      }
+      // ,
+      // {
+      //    "name": "commit-message-linter",
+      //    "command": "dotnet",
+      //    "args": [
+      //       "husky",
+      //       "exec",
+      //       ".husky/csx/commit-lint.csx",
+      //       "--args",
+      //       "${args}"
+      //    ]
+      // }
+   ]
+}

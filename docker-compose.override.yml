@@ -1,0 +1,15 @@
+version: '3.7'
+
+services:
+  orgservice:
+    container_name: orgservice
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - 8004:80
+      - 50001:50001
+    env_file:
+      - ./.env
+    volumes:
+      - ~/.aspnet/https:/root/.aspnet/https:ro
+      - ~/.microsoft/usersecrets:/root/.microsoft/usersecrets:ro

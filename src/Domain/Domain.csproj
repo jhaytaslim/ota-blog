@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.4" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="7.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Entities\PayRoll\**" />
+    <Compile Remove="Enums\PayRoll\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="Entities\PayRoll\**" />
+    <EmbeddedResource Remove="Enums\PayRoll\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Entities\PayRoll\**" />
+    <None Remove="Enums\PayRoll\**" />
+  </ItemGroup>
+
+  
+
+</Project>

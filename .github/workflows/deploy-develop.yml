@@ -1,0 +1,48 @@
+name: Deploy Development
+
+on:
+  push:
+    branches: [develop]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: "7.0.x"
+          include-prerelease: true
+
+      - name: Push to server and deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DEV_HOST }}
+          USERNAME: ${{ secrets.DEV_USERNAME }}
+          PORT: ${{ secrets.PORT }}
+          KEY: ${{ secrets.DEV_SSHKEY }}
+          script: |
+            cd ${{ secrets.DEV_PATH }} 
+            git pull
+            docker-compose -f docker-compose.yml -f docker-compose.override.yml up --build -d
+
+  deploy-migration:
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
+
+      - name: Logs in to server to deploy migration
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DEV_HOST }}
+          USERNAME: ${{ secrets.DEV_USERNAME }}
+          PORT: ${{ secrets.PORT }}
+          KEY: ${{ secrets.DEV_SSHKEY }}
+          script: |
+            cd ${{ secrets.DEV_PATH }}
+            chmod u+x migrate.sh
+            ./migrate.sh  
+            
